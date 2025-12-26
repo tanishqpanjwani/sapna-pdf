@@ -17,7 +17,7 @@ export async function generatePDF(html: string): Promise<Buffer> {
       printBackground: true
     });
 
-    // Convert Uint8Array -> Buffer (fixes the Response type error)
+    // IMPORTANT: convert Uint8Array -> Buffer
     return Buffer.from(pdfUint8);
   } finally {
     await browser.close();
