@@ -1,4 +1,5 @@
-import { generatePDF } from "../../../_lib/pdf";
+import { generatePDF } from "../../_lib/pdf";
+
 
 export async function POST(req: Request) {
   const b = await req.json();
