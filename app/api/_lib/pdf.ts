@@ -1,7 +1,7 @@
 import chromium from "@sparticuz/chromium";
 import puppeteer from "puppeteer-core";
 
-export async function generatePDF(html: string): Promise<Buffer> {
+export async function generatePDF(html: string): Promise<Uint8Array> {
   const browser = await puppeteer.launch({
     args: chromium.args,
     executablePath: await chromium.executablePath(),
@@ -12,13 +12,13 @@ export async function generatePDF(html: string): Promise<Buffer> {
     const page = await browser.newPage();
     await page.setContent(html, { waitUntil: "networkidle0" });
 
-    const pdfUint8 = await page.pdf({
+    const pdfBytes = await page.pdf({
       format: "A4",
       printBackground: true
     });
 
-    // IMPORTANT: convert Uint8Array -> Buffer
-    return Buffer.from(pdfUint8);
+    // pdfBytes is already a Uint8Array
+    return pdfBytes;
   } finally {
     await browser.close();
   }
