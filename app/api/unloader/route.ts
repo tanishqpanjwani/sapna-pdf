@@ -11,7 +11,8 @@ export async function POST(req: Request) {
 
   const pdf = await generatePDF(html);
 
-  return new Response(pdf, {
-    headers: { "Content-Type": "application/pdf" }
-  });
+return new Response(new Blob([pdf], { type: "application/pdf" }), {
+  headers: { "Content-Type": "application/pdf" }
+});
+
 }
